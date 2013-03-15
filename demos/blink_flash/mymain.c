@@ -137,6 +137,7 @@ void GPIO_WriteBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin, BitAction BitVal)
   }
 }  
 
+#if 0
 static void SetSysClockToHSE(void)
 {
   __IO uint32_t StartUpCounter = 0, HSEStatus = 0;
@@ -232,7 +233,6 @@ static void SetSysClock(void)
     source (default after reset) */
 }
 
-
 void SystemInit (void)
 {
   /* Reset the RCC clock configuration to the default reset state(for debug purpose) */
@@ -291,7 +291,7 @@ void SystemInit (void)
   SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH. */
 #endif
 }
-
+#endif
 
 int main(void)
 {
