@@ -201,18 +201,6 @@ static inline int atoi(const char *str)
 {
 }
 
-static inline int getchar()
-{
-}
-
-static inline int ungetch(int c)
-{
-}
-
-static inline void myprint(...)
-{
-}
-
 static inline int isdigit(int c)
 {
 }
