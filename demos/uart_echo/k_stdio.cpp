@@ -19,8 +19,8 @@ void send_byte(u8 b)
 void myprint(const char *str)
 {
   const char *p = str;
-  while(*p++)
-    send_byte(*p);
+  while(*p)
+    send_byte(*p++);
 }
 
 int keep_char = -1;
