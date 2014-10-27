@@ -21,6 +21,18 @@ mymain.bin: mymain.elf
 
 token_container.o: token_container.cpp token_container.h
 	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
+token_container.h:
+	ln -s ~/git/simple_scheme/token_container.h .
+token_container.cpp:
+	ln -s ~/git/simple_scheme/token_container.cpp .
+s_eval.h:
+	ln -s ~/git/simple_scheme/s_eval.h .
+s_eval.cpp:
+	ln -s ~/git/simple_scheme/s_eval.cpp  .
+cell.h:
+	ln -s ~/git/simple_scheme/cell.h .
+cell.cpp:
+	ln -s ~/git/simple_scheme/cell.cpp .
 
 s_eval.o: s_eval.cpp s_eval.h
 	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
@@ -36,4 +48,6 @@ k_stdio.o: k_stdio.cpp k_stdio.h
 #arm-none-eabi-objdump -S demos/uart_echo/main.elf > demos/uart_echo/main.list
 
 clean:
-	rm -rf *.o *.elf *.bin
+	rm -rf *.o *.elf *.bin 
+distclean:
+	find . -type l -exec rm -f {} \;
