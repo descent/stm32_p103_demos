@@ -15,42 +15,23 @@ void send_byte(uint8_t b)
 }
 #endif
 
+void abc(const char *str)
+{
+  myprint(str);
+  getchar();
+}
+
 extern "C"
 {
 int main(void)
 {
     init_rs232();
     USART_Cmd(USART2, ENABLE);
-#if 0
-    uint8_t b;
-
-
-    while(1) {
-        /* Loop until the USART2 has received a byte. */
-        while(USART_GetFlagStatus(USART2, USART_FLAG_RXNE) == RESET);
-
-        /* Capture the received byte and print it out. */
-        b = (USART_ReceiveData(USART2) & 0x7F);
-        send_byte('G');
-        send_byte('o');
-        send_byte('t');
-        send_byte(':');
-        send_byte(b);
-        send_byte('\n');
-    }
-#endif
+  mydeque.init();
   init_eval();
   Environment *global_env = get_env(0, "global");
   create_primitive_procedure(global_env);
-#if 0
-  while(1)
-  {
-    myprint("simple scheme> ");
-    getchar();
-  }
-#else
   repl("simple scheme> ", global_env);
-#endif
   return 0;
 
 }
