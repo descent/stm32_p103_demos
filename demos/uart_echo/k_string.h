@@ -282,7 +282,7 @@ static inline u8* float_to_str(float num)
       if (tmp1 == 0.0)
         break;
    }    
-   str[index] = 0;
+   str[index+1] = 0;
 
    return str;
 }
