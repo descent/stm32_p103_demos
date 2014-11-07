@@ -1,7 +1,12 @@
 #include "k_stdio.h"
 #include "k_string.h"
 
+#ifdef P103
 #include "stm32f10x.h"
+#else
+#include "stm32f4xx_usart.h"
+#endif
+
 
 void send_byte(u8 b)
 {
@@ -24,6 +29,12 @@ void myprint(int num)
   char str[10];
   s32_itoa_s(num, str, 10);
   myprint(str);
+}
+
+void myprint_float(float num)
+{
+  u8 *str = float_to_str(num);
+  myprint((const char*)str);
 }
 
 int keep_char = -1;
