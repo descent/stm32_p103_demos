@@ -7,8 +7,7 @@
 #include "stm32f4xx_usart.h"
 #endif
 
-
-void send_byte(u8 b)
+void DS::send_byte(u8 b)
 {
   /* Send one byte */
   USART_SendData(USART2, b);
@@ -17,21 +16,21 @@ void send_byte(u8 b)
   while(USART_GetFlagStatus(USART2, USART_FLAG_TXE) == RESET);
 }
 
-void myprint(const char *str)
+void DS::myprint(const char *str)
 {
   const char *p = str;
   while(*p)
     send_byte(*p++);
 }
 
-void myprint(int num)
+void DS::myprint(int num)
 {
   char str[10];
   s32_itoa_s(num, str, 10);
   myprint(str);
 }
 
-void myprint_float(float num)
+void DS::myprint_float(float num)
 {
   u8 *str = float_to_str(num);
   myprint((const char*)str);
@@ -41,7 +40,7 @@ int keep_char = -1;
 
 MyDeque mydeque;
 
-int ungetch(int c)
+int DS::ungetch(int c)
 {
 #if 0
   myprint("\r\nun: ");
@@ -53,13 +52,13 @@ int ungetch(int c)
   return 0;
 }
 
-int read_char()
+int DS::read_char()
 {
   while(USART_GetFlagStatus(USART2, USART_FLAG_RXNE) == RESET);
   return (USART_ReceiveData(USART2) & 0x7F);
 }
 
-int getchar()
+int DS::getchar()
 {
   int b;
 
@@ -154,4 +153,17 @@ end:
     }
     return b;
   }
+}
+
+char *DS::gets(char *s, int size)
+{
+  int i=0;
+  for(; i < size-1; ++i)
+  {
+    s[i] = getchar();
+    if (s[i] == ENTER)
+      break;
+  }
+  s[i] = 0;
+  return s;
 }
