@@ -197,13 +197,23 @@ static inline int s32_sprintf(char *str_buf, const char *fmt, ...)
   return p-str_buf - 1;
 }
 
-static inline int atoi(char *s)
+static inline int atoi(const char *s)
 {
   // ref: http://blog.csdn.net/wxhhkhl/article/details/6142289
   int n=0,i;
-  for(i=0;s[i]>='0'&&s[i]<='9';i++)
-  n=n*10+s[i]-'0';//将字符串转换为整型数字
-  return n;
+
+  if (s[0] == '-')
+    i = 1;
+  else
+    i = 0;
+
+  for(; s[i]>='0' && s[i]<='9';i++)
+    n=n*10+s[i]-'0';
+
+  if (s[0] == '-')
+    return -n;
+  else
+    return n;
 }
 
 static inline bool isdigit(int c)
