@@ -114,46 +114,6 @@ end:
     int ch;
     mydeque.pop_front(ch);
     return ch;
-
-  if (keep_char != -1 )
-  {
-    b = keep_char;
-    keep_char = -1;
-    return b;
-  }
-  else
-  {
-    while(USART_GetFlagStatus(USART2, USART_FLAG_RXNE) == RESET);
-    b = (USART_ReceiveData(USART2) & 0x7F);
-    switch (b)
-    {
-      case '\r': // press enter
-      {
-        myprint("\r\n");
-        break;
-      }
-      case 0x8: // backspace
-      {
-        send_byte(b);
-        send_byte(' ');
-        send_byte(b);
-        return getchar();
-        //break;
-      }
-#if 0
-      case '\n':
-      {
-        break;
-      }
-#endif
-      default:
-      {
-        send_byte(b);
-        break;
-      }
-    }
-    return b;
-  }
 }
 
 char *DS::gets(char *s, int size)
