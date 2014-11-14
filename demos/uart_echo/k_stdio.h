@@ -2,7 +2,7 @@
 #define K_STDIO_H
 
 #include "type.h"
-#include "mydeque.h"
+#include "gdeque.h"
 
 #define ENTER '\r'
 
@@ -19,6 +19,7 @@ int read_char();
 char *gets(char *s, int size);
 }
 
-extern MyDeque mydeque;
+//extern MyDeque mydeque;
+extern DS::Deque<int> mydeque;
 
 #endif

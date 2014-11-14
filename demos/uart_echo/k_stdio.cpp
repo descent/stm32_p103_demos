@@ -38,7 +38,8 @@ void DS::myprint_float(float num)
 
 int keep_char = -1;
 
-MyDeque mydeque;
+//MyDeque mydeque;
+DS::Deque<int> mydeque;
 
 int DS::ungetch(int c)
 {
