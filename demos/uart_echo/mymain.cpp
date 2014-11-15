@@ -45,8 +45,8 @@ bool is_down(const char *buf)
     return false;
 }
 
-Deque<DS::CString> deque;
-DS::Deque<int> line_buf;
+// Deque<DS::CString> deque;
+//DS::Deque<int, 128> line_buf;
 
 extern "C"
 {
@@ -54,6 +54,10 @@ int main(void)
 {
   init_rs232();
   USART_Cmd(USART2, ENABLE);
+
+  DS::Deque<int, 128> test_buf;
+
+  test_buf.init();
 
 #if 0
 
@@ -113,9 +117,9 @@ int main(void)
 
 #else
   init_eval();
-  deque.init();
+  //deque.init();
   mydeque.init();
-  line_buf.init();
+  //line_buf.init();
   Environment *global_env = get_env(0, "global");
   create_primitive_procedure(global_env);
   non_os_repl("simple scheme> ", global_env);
