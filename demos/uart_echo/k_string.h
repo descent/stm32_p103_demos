@@ -29,6 +29,21 @@ static inline char* s_strcpy(char *dest, const char *src)
   return p;
 }
 
+static inline char* s_strncpy(char *dest, const char *src, int n)
+{
+  char *p = dest;
+  int i=0;
+  while(*src)
+  {
+    *dest++ = *src++;
+    ++i;
+    if (i >= n)
+      break;
+  }
+  *dest='\0';
+  return p;
+}
+
 static inline int s_strcmp(const char *s1, const char *s2)
 {
   s8 res;
