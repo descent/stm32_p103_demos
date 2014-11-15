@@ -1,11 +1,39 @@
 #include "k_stdio.h"
 #include "k_string.h"
 
-#ifdef P103
-#include "stm32f10x.h"
-#else
-#include "stm32f4xx_usart.h"
-#endif
+void DS::go_up()
+{
+  send_byte(27);
+  send_byte(91);
+  send_byte('A');
+}
+
+void DS::go_down()
+{
+  send_byte(27);
+  send_byte(91);
+  send_byte('B');
+}
+
+void DS::go_right()
+{
+  send_byte(27);
+  send_byte(91);
+  send_byte('C');
+}
+
+void DS::go_left()
+{
+  send_byte(27);
+  send_byte(91);
+  send_byte('D');
+}
+
+void DS::go_left(int time)
+{
+  for (int i=0 ; i < time ; ++i)
+    go_left();
+}
 
 void DS::send_byte(u8 b)
 {
@@ -36,9 +64,7 @@ void DS::myprint_float(float num)
   myprint((const char*)str);
 }
 
-int keep_char = -1;
 
-//MyDeque mydeque;
 DS::Deque<int> mydeque;
 
 int DS::ungetch(int c)
@@ -59,6 +85,7 @@ int DS::read_char()
   return (USART_ReceiveData(USART2) & 0x7F);
 }
 
+
 int DS::getchar()
 {
   int b;
@@ -72,7 +99,7 @@ int DS::getchar()
 
     switch (b)
     {
-      case 127: // backspace
+      case BACKSPACE: // backspace
       {
         if (mydeque.empty())
           break;
@@ -127,4 +154,83 @@ char *DS::gets(char *s, int size)
   }
   s[i] = 0;
   return s;
+}
+
+int keep_char = -1;
+
+int DS::getch()
+{
+  int ch;
+
+  if (keep_char != -1)
+  {
+    ch = keep_char;
+    keep_char = -1;
+    send_byte(ch);
+    return ch;
+  }
+
+  ch = DS::read_char();
+
+  switch (ch)
+  {
+    case 27:
+    {
+      ch = DS::read_char();
+      if (ch == '[')
+      {
+        ch = DS::read_char();
+        switch (ch)
+        {
+          case 'A': // up
+          {
+            return UP_KEY;
+          }
+          case 'B': // down
+          {
+            return DOWN_KEY;
+          }
+          case 'C': // right
+          {
+            return RIGHT_KEY;
+          }
+          case 'D': // left
+          {
+            return LEFT_KEY;
+          }
+          default:
+          {
+            DS::ungetc(ch); 
+            break;
+          }
+        }
+      }
+      else
+      {
+        DS::ungetc(ch);
+      }
+    }
+    case BACKSPACE:
+    {
+      break;
+    }
+    case ENTER:
+    {
+      send_byte('\r');
+      send_byte('\n');
+      break;
+    }
+    default:
+    {
+      send_byte(ch);
+      break;
+    }
+  }
+
+  return ch;
+}
+
+int DS::ungetc(int c)
+{
+  keep_char = c;
 }
