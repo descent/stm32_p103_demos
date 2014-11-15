@@ -13,7 +13,7 @@ main.bin: main.elf
 main.elf: main.c
 	arm-none-eabi-gcc -Wl,-Tmain.ld -nostartfiles $(CFLAGS)  -I../../demos/uart_echo/ -o $@ $(OTHER_OBJS) $^
 
-mymain.elf: mymain.o token_container.o s_eval.o cell.o k_stdio.o mydeque.o gdeque.o cstring.o
+mymain.elf: mymain.o token_container.o s_eval.o cell.o k_stdio.o gdeque.o cstring.o
 	arm-none-eabi-g++ $(CFLAGS) $(CXXFLAGS) -Wl,-Tmain.ld -nostartfiles $(CFLAGS) -I../../demos/uart_echo/ -o $@ $(OTHER_OBJS) $^ -lgcc
 
 mymain.bin: mymain.elf
@@ -54,8 +54,8 @@ cell.o: cell.cpp cell.h k_string.h type.h k_stdio.h
 k_stdio.o: k_stdio.cpp k_stdio.h
 	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
 
-mydeque.o: mydeque.cpp mydeque.h 
-	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
+#mydeque.o: mydeque.cpp mydeque.h 
+#	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
 
 gdeque.o: gdeque.cpp gdeque.h 
 	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
