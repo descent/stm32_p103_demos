@@ -48,8 +48,33 @@ bool is_down(const char *buf)
 // Deque<DS::CString> deque;
 //DS::Deque<int, 128> line_buf;
 
+
 extern "C"
 {
+#ifdef SP_STATUS
+u32 sp_val=0xffffffff;
+// ref: http://blog.linux.org.tw/~jserv/archives/001870.html
+__attribute__((__no_instrument_function__))
+void __cyg_profile_func_enter(void *this_func, void *call_site)
+{
+
+}
+
+__attribute__((__no_instrument_function__))
+void __cyg_profile_func_exit(void *this_func, void *call_site)
+{
+  u32 tmp_sp; 
+
+   __asm__ (
+             "mov %0, sp\n"
+             : "=r"(tmp_sp)
+             :
+           );
+  if (tmp_sp < sp_val)
+    sp_val = tmp_sp;
+}
+#endif
+
 int main(void)
 {
   init_rs232();
