@@ -1,11 +1,19 @@
-CXX = arm-none-eabi-g++
+include rule.mk
 
 # only for -finstrument-functions
 #CFLAGS = -fno-common -O0 -g -mcpu=cortex-m3 -mthumb -ffreestanding  -nostdlib -nodefaultlibs -I./ -I../..//libraries/CMSIS/CM3/CoreSupport -I../..//libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x -I../..//libraries/STM32F10x_StdPeriph_Driver/inc -I../../demos/common -mfloat-abi=soft -DP103 -DSP_STATUS -finstrument-functions
 
-CFLAGS = -fno-common -O0 -g -mcpu=cortex-m3 -mthumb -ffreestanding  -nostdlib -nodefaultlibs -I./ -I../..//libraries/CMSIS/CM3/CoreSupport -I../..//libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x -I../..//libraries/STM32F10x_StdPeriph_Driver/inc -I../../demos/common -mfloat-abi=soft -DP103 
 
-CXXFLAGS = -fno-exceptions -fno-rtti
+CXXFLAGS += $(MYCXXFLAGS) $(CFLAGS)
+
+# make STACK_REG=1 will go -finstrument-functions
+ifndef STACK_REG
+CFLAGS += $(MYCFLAGS)
+else
+# only for -finstrument-functions
+CFLAGS += $(MYCFLAGS) -DSP_STATUS -finstrument-functions
+endif
+
 
 OTHER_OBJS = ../..//libraries/CMSIS/CM3/CoreSupport/core_cm3.c ../..//libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/system_stm32f10x.c ../..//libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/startup/gcc_ride7/startup_stm32f10x_md.s ../../demos/common/stm32_p103.c ../..//libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_rcc.c ../..//libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_gpio.c ../..//libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_usart.c ../..//libraries/STM32F10x_StdPeriph_Driver/src/stm32f10x_exti.c ../..//libraries/STM32F10x_StdPeriph_Driver/src/misc.c
 
@@ -22,44 +30,15 @@ mymain.elf: mymain.o token_container.o s_eval.o cell.o k_stdio.o gdeque.o cstrin
 
 mymain.bin: mymain.elf
 	arm-none-eabi-objcopy -Obinary $< $@
-# arm-none-eabi-g++ -fno-exceptions -fno-rtti -fno-common -O0 -g -mcpu=cortex-m3 -mthumb -ffreestanding  -nostdlib -nodefaultlibs -I./ -I../..//libraries/CMSIS/CM3/CoreSupport -I../..//libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x -I../..//libraries/STM32F10x_StdPeriph_Driver/inc -I../../demos/common -MM token_container.cpp
-
-mymain.o: mymain.cpp stm32f10x.h \
- ../..//libraries/CMSIS/CM3/CoreSupport/core_cm3.h \
-  ../..//libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x/system_stm32f10x.h \
-   type.h stm32f10x_conf.h \
-    ../..//libraries/STM32F10x_StdPeriph_Driver/inc/stm32f10x_usart.h \
-     stm32f10x.h ../../demos/common/stm32_p103.h k_stdio.h s_eval.h cell.h \
-      k_string.h token_container.h
-	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
-
-
-token_container.o: token_container.cpp token_container.h k_string.h type.h k_stdio.h
-	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
-
-s_eval.o: s_eval.cpp k_string.h type.h s_eval.h cell.h k_stdio.h token_container.h
-	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
-
-cell.o: cell.cpp cell.h k_string.h type.h k_stdio.h
-	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
-
-k_stdio.o: k_stdio.cpp k_stdio.h
-	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
-
-#mydeque.o: mydeque.cpp mydeque.h 
-#	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
-
-gdeque.o: gdeque.cpp gdeque.h 
-	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
-
-cstring.o: cstring.cpp cstring.h 
-	$(CXX) $(CXXFLAGS) $(CFLAGS) -c $<
-
-#arm-none-eabi-objcopy -Obinary demos/uart_echo/main.elf demos/uart_echo/main.bin
 
 #arm-none-eabi-objdump -S demos/uart_echo/main.elf > demos/uart_echo/main.list
 
+sources = cell.cpp  k_stdio.cpp  mymain.cpp  s_eval.cpp  token_container.cpp gdeque.cpp cstring.cpp
+
+include $(sources:.cpp=.dpp)
+
+
 clean:
-	rm -rf *.o *.elf *.bin 
+	rm -rf *.o *.elf *.bin *.dpp *.dpp.*
 distclean:
 	find . -type l -exec rm -f {} \;
