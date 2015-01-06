@@ -49,6 +49,17 @@ bool is_down(const char *buf)
 //DS::Deque<int, 128> line_buf;
 
 
+u32 get_stack_reg()
+{
+  u32 tmp_sp;
+
+  __asm__ (
+            "mov %0, sp\n"
+            : "=r"(tmp_sp)
+            :
+          );
+  return tmp_sp;
+}
 extern "C"
 {
 #ifdef SP_STATUS
@@ -73,6 +84,7 @@ void __cyg_profile_func_exit(void *this_func, void *call_site)
   if (tmp_sp < sp_val)
     sp_val = tmp_sp;
 }
+
 #endif
 
 int main(void)
