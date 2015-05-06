@@ -1,0 +1,105 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BACKSPACE	k_stdio.h	11;"	d
+BACKSPACE	k_stdio.h	8;"	d
+CFLAGS	makefile	/^CFLAGS=-g$/;"	m
+CXX	makefile	/^CXX=arm-none-eabi-g++$/;"	m
+DOWN_KEY	k_stdio.h	20;"	d
+DS	k_stdio.h	/^namespace DS$/;"	n
+ENTER	k_stdio.h	17;"	d
+EXCEED_MEMAREA	mem.cpp	15;"	d	file:
+GET_FREE_MEMAREA	mem.cpp	17;"	d	file:
+HEAP_SIZE	mem.cpp	/^const int HEAP_SIZE = PAGE * PAGE_SIZE;$/;"	v
+K_STDIO_H	k_stdio.h	2;"	d
+LD_FLAGS	makefile	/^LD_FLAGS=-Wl,-T.\/stm32.ld -nostartfiles$/;"	m
+LEFT_KEY	k_stdio.h	21;"	d
+MEM_H	mem.h	2;"	d
+MYCFLAGS	makefile	/^MYCFLAGS=-fno-common -O0 -g -mcpu=cortex-m3 -mthumb -I..\/ -I.\/ -I..\/..\/..\/libraries\/CMSIS\/CM3\/CoreSupport -I..\/..\/..\/libraries\/CMSIS\/CM3\/DeviceSupport\/ST\/STM32F10x -I..\/..\/..\/libraries\/STM32F10x_StdPeriph_Driver\/inc -I..\/..\/..\/demos\/common -mfloat-abi=soft -DP103$/;"	m
+MYCXXFLAGS	makefile	/^MYCXXFLAGS = -fno-exceptions -fno-rtti -ffreestanding -nostdlib -nodefaultlibs$/;"	m
+NO_FREE_MEMAREA	mem.cpp	16;"	d	file:
+OTHER_OBJS	makefile	/^OTHER_OBJS = ..\/..\/..\/libraries\/CMSIS\/CM3\/CoreSupport\/core_cm3.c ..\/..\/..\/libraries\/CMSIS\/CM3\/DeviceSupport\/ST\/STM32F10x\/system_stm32f10x.c ..\/..\/..\/libraries\/CMSIS\/CM3\/DeviceSupport\/ST\/STM32F10x\/startup\/gcc_ride7\/startup_stm32f10x_md.s ..\/..\/..\/demos\/common\/stm32_p103.c ..\/..\/..\/libraries\/STM32F10x_StdPeriph_Driver\/src\/stm32f10x_rcc.c ..\/..\/..\/libraries\/STM32F10x_StdPeriph_Driver\/src\/stm32f10x_gpio.c ..\/..\/..\/libraries\/STM32F10x_StdPeriph_Driver\/src\/stm32f10x_usart.c ..\/..\/..\/libraries\/STM32F10x_StdPeriph_Driver\/src\/stm32f10x_exti.c ..\/..\/..\/libraries\/STM32F10x_StdPeriph_Driver\/src\/misc.c$/;"	m
+PAGE	mem.cpp	/^const int PAGE = 64;$/;"	v
+PAGE_SIZE	mem.cpp	/^const int PAGE_SIZE = 1024;$/;"	v
+PF	mem.cpp	10;"	d	file:
+PRINT_PTR	mem.cpp	26;"	d	file:
+RIGHT_KEY	k_stdio.h	22;"	d
+UP_KEY	k_stdio.h	19;"	d
+USE_STDPERIPH_DRIVER	myvec.cpp	1;"	d	file:
+__dso_handle	vec.cpp	/^void *__dso_handle;$/;"	v
+_close	vec.cpp	/^int _close(int fd)$/;"	f
+_exit	vec.cpp	/^extern "C" void _exit()$/;"	f
+_fstat	vec.cpp	/^int _fstat(int fd, struct stat *buf)$/;"	f
+_getpid	vec.cpp	/^int _getpid()$/;"	f
+_isatty	vec.cpp	/^int _isatty(int fd)$/;"	f
+_kill	vec.cpp	/^int _kill(int a, int b)$/;"	f
+_lseek	vec.cpp	/^int _lseek(int fd, int offset, int whence)$/;"	f
+_read	vec.cpp	/^int _read(int fd, void *buf, int count)$/;"	f
+_sbrk	vec.cpp	/^extern "C" char *_sbrk(char *increment)$/;"	f
+_write	vec.cpp	/^int _write(int fd, const void *buf, int count)$/;"	f
+address	vec.cpp	/^  const_pointer     address(const_reference x) const { return &x; }$/;"	f	class:my_allocator
+address	vec.cpp	/^  pointer           address(reference x) const { return &x; }$/;"	f	class:my_allocator
+allocate	vec.cpp	/^  pointer   allocate(size_type n, const void * = 0) {$/;"	f	class:my_allocator
+brk_area	vec.cpp	/^char brk_area[10240];$/;"	v
+const_pointer	vec.cpp	/^  typedef const T*  const_pointer;$/;"	t	class:my_allocator	file:
+const_reference	vec.cpp	/^  typedef const T&  const_reference;$/;"	t	class:my_allocator	file:
+construct	vec.cpp	/^  void              construct(pointer p, const T& val) $/;"	f	class:my_allocator
+deallocate	vec.cpp	/^  void      deallocate(void* p, size_type) {$/;"	f	class:my_allocator
+destroy	vec.cpp	/^  void              destroy(pointer p) { p->~T(); }$/;"	f	class:my_allocator
+difference_type	vec.cpp	/^  typedef int difference_type;$/;"	t	class:my_allocator	file:
+dso_handle_	vec.cpp	/^void *dso_handle_;$/;"	v
+find_free_index	mem.cpp	/^bool find_free_index(int from, int &index)$/;"	f	namespace:__anon1
+free_index	mem.cpp	/^int free_index = 0;$/;"	v
+get_byte	myvec.cpp	/^uint8_t get_byte()$/;"	f
+getch	k_stdio.cpp	/^int DS::getch()$/;"	f	class:DS
+getchar	k_stdio.cpp	/^int DS::getchar()$/;"	f	class:DS
+gets	k_stdio.cpp	/^char *DS::gets(char *s, int size)$/;"	f	class:DS
+go_down	k_stdio.cpp	/^void DS::go_down()$/;"	f	class:DS
+go_left	k_stdio.cpp	/^void DS::go_left()$/;"	f	class:DS
+go_left	k_stdio.cpp	/^void DS::go_left(int time)$/;"	f	class:DS
+go_right	k_stdio.cpp	/^void DS::go_right()$/;"	f	class:DS
+go_up	k_stdio.cpp	/^void DS::go_up()$/;"	f	class:DS
+heap	mem.cpp	/^char heap[HEAP_SIZE];$/;"	v
+is_enough	mem.cpp	/^int is_enough(int index, u8 size)$/;"	f	namespace:__anon1
+keep_char	k_stdio.cpp	/^int keep_char = -1;$/;"	v
+main	mem.cpp	/^int main(int argc, char *argv[])$/;"	f
+main	myvec.cpp	/^  int main(void)$/;"	f
+max_size	vec.cpp	/^  size_type         max_size() const { return int(-1); }$/;"	f	class:my_allocator
+mem_area	mem.cpp	/^unsigned char mem_area[PAGE];$/;"	v
+memarea	vec.cpp	/^static char memarea[10240];$/;"	v	file:
+my_allocator	vec.cpp	/^  my_allocator() {}$/;"	f	class:my_allocator
+my_allocator	vec.cpp	/^  my_allocator(const my_allocator&) {}$/;"	f	class:my_allocator
+my_allocator	vec.cpp	/^  my_allocator(const my_allocator<U>&) {}$/;"	f	class:my_allocator
+my_allocator	vec.cpp	/^class my_allocator$/;"	c	file:
+mydeque	k_stdio.cpp	/^DS::Deque<int> mydeque;$/;"	v
+myfree	mem.cpp	/^void myfree(void *ptr)$/;"	f
+mymalloc	mem.cpp	/^void *mymalloc(u32 size)$/;"	f
+mymalloc_internal	mem.cpp	/^void *mymalloc_internal(u8 size)$/;"	f	namespace:__anon1
+myprint	k_stdio.cpp	/^void DS::myprint(const char *str)$/;"	f	class:DS
+myprint	k_stdio.cpp	/^void DS::myprint(int num, int base)$/;"	f	class:DS
+myprint_float	k_stdio.cpp	/^void DS::myprint_float(float num)$/;"	f	class:DS
+open	vec.cpp	/^int open(const char *pathname, int flags, int mode)$/;"	f
+operator =	vec.cpp	/^  my_allocator& operator=(const my_allocator<U>&) { return *this; }$/;"	f	class:my_allocator
+operator =	vec.cpp	/^  my_allocator<T>&  operator=(const my_allocator&) { return *this; }$/;"	f	class:my_allocator
+other	vec.cpp	/^  struct rebind { typedef my_allocator<U> other; };$/;"	t	struct:my_allocator::rebind	file:
+out_of_mem	vec.cpp	/^void out_of_mem()$/;"	f
+pointer	vec.cpp	/^  typedef T*        pointer;$/;"	t	class:my_allocator	file:
+print_memarea	mem.cpp	/^void print_memarea()$/;"	f
+printf	k_stdio.cpp	/^int DS::printf(const char *fmt, ...)$/;"	f	class:DS
+read_char	k_stdio.cpp	/^int DS::read_char()$/;"	f	class:DS
+rebind	vec.cpp	/^  struct rebind { typedef my_allocator<U> other; };$/;"	s	class:my_allocator	file:
+reference	vec.cpp	/^  typedef T&        reference;$/;"	t	class:my_allocator	file:
+search_free_area	mem.cpp	/^bool search_free_area(u8 size)$/;"	f	namespace:__anon1
+send_byte	k_stdio.cpp	/^void DS::send_byte(u8 b)$/;"	f	class:DS
+size_type	vec.cpp	/^  typedef int    size_type;$/;"	t	class:my_allocator	file:
+sprintf	k_stdio.cpp	/^int DS::sprintf(char *str, const char *fmt, ...)$/;"	f	class:DS
+u32	mem.h	/^typedef unsigned int u32;$/;"	t
+u8	mem.h	/^typedef unsigned char u8;$/;"	t
+ungetc	k_stdio.cpp	/^int DS::ungetc(int c)$/;"	f	class:DS
+ungetch	k_stdio.cpp	/^int DS::ungetch(int c)$/;"	f	class:DS
+value_type	vec.cpp	/^  typedef T         value_type;$/;"	t	class:my_allocator	file:
+vec_test	vec.cpp	/^void vec_test()$/;"	f
+vsprintf	k_stdio.cpp	/^int DS::vsprintf(char *str, const char *fmt, va_list ap)$/;"	f	class:DS
