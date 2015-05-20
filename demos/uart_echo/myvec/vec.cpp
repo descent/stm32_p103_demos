@@ -2,8 +2,10 @@
 #include "k_stdio.h"
 
 using namespace DS; 
+using namespace std;
 
 #include <vector>
+#include <map>
 
 void *dso_handle_;
 void *__dso_handle;
@@ -135,11 +137,31 @@ public:
   my_allocator& operator=(const my_allocator<U>&) { return *this; }
 };
 
+class Io
+{
+  public:
+    Io()
+    {
+      i=56;
+      printf("ctor i: %d\r\n", i);
+    }
+    ~Io()
+    {
+      printf("dtor i: %d\r\n", i);
+    }
+  private:
+    int i;
+};
+
+Io io;
+
 void vec_test()
 {
   char a, b, c , d, e, f;
   //std::vector<int, __gnu_cxx::new_allocator<int> > vec;
   std::vector<char, my_allocator<char> > vec;
+  //std::map<char, my_allocator<char> > mymap;
+
   for (int i=0 ; i < 5 ; ++i)
   {
     vec.push_back(i);
@@ -156,6 +178,16 @@ void vec_test()
   e = vec[4];
 
   char z=a+b+c+d;
+  printf("\r\n");
+  print_memarea();
+
+  map<int, int, less<int>, my_allocator<pair<int, int> > > mymap;
+
+  mymap[1] = 111;
+  mymap[2] = 222;
+  printf("\r\n");
+  printf("%d\n", mymap[1]);
+  printf("%d\n", mymap[2]);
   printf("\r\n");
   print_memarea();
 
