@@ -16,7 +16,7 @@ vec.o: vec.cpp
 	$(CXX) $(MYCFLAGS) -c $<
 
 mem.o: mem.cpp  
-	$(CXX) $(MYCFLAGS) $(MYCXXFLAGS) -c $<
+	$(CXX) -DSTM32 $(MYCFLAGS) $(MYCXXFLAGS) -c $<
 myvec.o: myvec.cpp
 	$(CXX) $(MYCFLAGS) $(MYCXXFLAGS) -c $<
 
