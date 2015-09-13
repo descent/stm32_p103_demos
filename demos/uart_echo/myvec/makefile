@@ -9,7 +9,7 @@ CXX=arm-none-eabi-g++
 myvec.bin: myvec.elf
 	arm-none-eabi-objcopy -Obinary $< $@
 
-myvec.elf: myvec.o mem.o k_stdio.o vec.o
+myvec.elf: myvec.o mem.o k_stdio.o vec.o my_setjmp.o
 	arm-none-eabi-g++ $(MYCFLAGS)  -Wl,-Tmain.ld -nostartfiles $(CFLAGS) -I../../demos/uart_echo/ -o $@ $^ $(OTHER_OBJS) -lgcc
 
 vec.o: vec.cpp
@@ -22,6 +22,9 @@ myvec.o: myvec.cpp
 
 k_stdio.o: k_stdio.cpp
 	$(CXX) $(MYCFLAGS) $(MYCXXFLAGS) -c $<
+
+%.o:%.S
+	arm-none-eabi-gcc $(MYCFLAGS) $(INC) -c $< 
 
 clean:
 	rm -rf *.o *.elf *.bin *.dpp *.dpp.* 
