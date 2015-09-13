@@ -7,6 +7,7 @@
 using namespace DS;
 
 
+
 uint8_t get_byte()
 {
   while(USART_GetFlagStatus(USART2, USART_FLAG_RXNE) == RESET);
@@ -15,6 +16,8 @@ uint8_t get_byte()
 }
 
 void vec_test();
+void vec_test_eh();
+
 
 extern "C"
 {
