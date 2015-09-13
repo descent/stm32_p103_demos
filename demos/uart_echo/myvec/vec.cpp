@@ -1,10 +1,24 @@
 #include "mem.h"
 #include "k_stdio.h"
+#include "my_setjmp.h"
+
+#define setjmp my_setjmp
+#define longjmp my_longjmp
+
+#define TRY do { switch((ex_code = setjmp(ex_buf__))) { case 0:
+#define CATCH(x) break; case x : 
+#define ETRY break; } } while(0);
+#define THROW(x) longjmp(ex_buf__, x)
+
+#define NOFREE_MEM 5
+
+jmp_buf ex_buf__;
 
 using namespace DS; 
 using namespace std;
 
 #include <vector>
+#include <string>
 #include <map>
 
 void *dso_handle_;
@@ -44,6 +58,12 @@ extern "C"
 int open(const char *pathname, int flags, int mode)
 {
 }
+
+extern "C"
+int _open(const char *pathname, int flags, int mode)
+{
+}
+
 
 extern "C"
 int _isatty(int fd)
@@ -155,8 +175,29 @@ class Io
 
 Io io;
 
+void vec_test_eh(void)
+{
+  int ex_code = 0;
+
+  TRY
+  {
+    std::vector<char, my_allocator<char> > vec;
+    for (int i=0 ; i < 5 ; ++i)
+    {
+      vec.push_back(i);
+    }
+  }
+  CATCH(NOFREE_MEM)
+  {
+    printf("\r\ngot no free mem\r\n");
+  }
+  ETRY
+  while(1);
+}
+
 void vec_test()
 {
+  int ex_code = 0;
   char a, b, c , d, e, f;
   //std::vector<int, __gnu_cxx::new_allocator<int> > vec;
   std::vector<char, my_allocator<char> > vec;
@@ -190,6 +231,25 @@ void vec_test()
   printf("%d\n", mymap[2]);
   printf("\r\n");
   print_memarea();
+
+  //basic_string<char>
+  typedef basic_string<char, std::char_traits<char>, my_allocator<char> > MyString;
+
+  //MyString str1="abc", str2="xyz";
+  MyString str1;
+  MyString str2;
+
+  str1="abc";
+  str2="xyz";
+  MyString str;
+
+  #if 0
+  str1 + str2;
+  MyString str = str1+str2;
+  printf("\r\n");
+  printf("%s\n", str.c_str());
+  printf("\r\n");
+  #endif
 
   while(1);
 }
