@@ -26,7 +26,7 @@ extern "C"
 
     init_rs232();
     USART_Cmd(USART2, ENABLE);
-    vec_test();
+    vec_test_eh();
 
     return 0;
   }
