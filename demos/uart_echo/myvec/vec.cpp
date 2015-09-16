@@ -121,7 +121,8 @@ public:
               {
                 printf("cannot alloc memory\n");
                 //throw std::bad_alloc();
-                out_of_mem();
+                THROW(NOFREE_MEM);
+                //out_of_mem();
                 //exit(-1);
               }
               printf("used my_allocator to allocate at address %x n: %d sizeof(T): %d", (int)t, n, sizeof(T));
@@ -178,11 +179,12 @@ Io io;
 void vec_test_eh(void)
 {
   int ex_code = 0;
+  printf("\r\nthrow ex test\r\n");
 
   TRY
   {
     std::vector<char, my_allocator<char> > vec;
-    for (int i=0 ; i < 5 ; ++i)
+    for (int i=0 ; i < 2000 ; ++i)
     {
       vec.push_back(i);
     }
