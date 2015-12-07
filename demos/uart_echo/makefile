@@ -25,15 +25,18 @@ main.bin: main.elf
 main.elf: main.c
 	arm-none-eabi-gcc -Wl,-Tmain.ld -nostartfiles $(CFLAGS)  -I../../demos/uart_echo/ -o $@ $(OTHER_OBJS) $^
 
-mymain.elf: mymain.o token_container.o s_eval.o cell.o k_stdio.o gdeque.o cstring.o
+mymain.elf: mymain.o token_container.o s_eval.o cell.o k_stdio.o gdeque.o cstring.o myiostream.o mystring.o mem.o
 	arm-none-eabi-g++ $(CFLAGS) $(CXXFLAGS) -Wl,-Tmain.ld -nostartfiles $(CFLAGS) -I../../demos/uart_echo/ -o $@ $(OTHER_OBJS) $^ -lgcc
 
 mymain.bin: mymain.elf
 	arm-none-eabi-objcopy -Obinary $< $@
 
+mem.o: mem.cpp mem.h
+	arm-none-eabi-g++ -DSTM32 $(MYCFLAGS) $(MYCXXFLAGS) -Wl,-Tmain.ld -nostartfiles $(CFLAGS) -I../../demos/uart_echo/ -c $<
+
 #arm-none-eabi-objdump -S demos/uart_echo/main.elf > demos/uart_echo/main.list
 
-sources = cell.cpp  k_stdio.cpp  mymain.cpp  s_eval.cpp  token_container.cpp gdeque.cpp cstring.cpp
+sources = cell.cpp  k_stdio.cpp  mymain.cpp  s_eval.cpp  token_container.cpp gdeque.cpp cstring.cpp myiostream.cpp mystring.cpp
 
 include $(sources:.cpp=.dpp)
 
