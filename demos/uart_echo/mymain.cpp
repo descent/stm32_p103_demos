@@ -5,6 +5,7 @@
 #include "s_eval.h"
 #include "gdeque.h"
 #include "cstring.h"
+#include "myiostream.h"
 
 using namespace DS;
 
@@ -87,10 +88,34 @@ void __cyg_profile_func_exit(void *this_func, void *call_site)
 
 #endif
 
+typedef void (*Fp)();
+
+
+
 int main(void)
 {
+  extern unsigned int __start_global_ctor__;
+  extern unsigned int __end_global_ctor__;
+  unsigned int *start = &__start_global_ctor__;
+  unsigned int *end = &__end_global_ctor__;
+
   init_rs232();
   USART_Cmd(USART2, ENABLE);
+
+  printf("test\r\n");
+
+  for (unsigned int *i = start; i != end; ++i)
+  {
+    Fp fp = (Fp)(*i);
+    (*fp)();
+  }
+
+#if 0
+    cout << hex << "&__start_global_ctor__: " << start << endl;
+    cout << hex << "&__end_global_ctor__: " << end << endl;
+    cout << dec;
+#endif
+    while(1);
 
   DS::Deque<int, 128> test_buf;
 
