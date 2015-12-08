@@ -23,10 +23,16 @@ SECTIONS
           . = ALIGN(8);
         } >RAM
 
+
 	/* Initialized data will initially be loaded in FLASH at the end of the .text section. */
     .data : AT (_sidata) 
     {
+
 		_sdata = .;
+        __start_global_ctor__ = .;
+        *(.init_array)
+        __end_global_ctor__ = .;
+
 		*(.data)		/* Initialized data */
 		_edata = .;
 	} >RAM
