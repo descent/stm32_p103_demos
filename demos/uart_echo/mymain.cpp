@@ -115,6 +115,7 @@ int main(void)
     cout << hex << "&__end_global_ctor__: " << end << endl;
     cout << dec;
 #endif
+  g_dtor();
     while(1);
 
   DS::Deque<int, 128> test_buf;
