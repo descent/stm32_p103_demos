@@ -5,9 +5,43 @@
 #include "s_eval.h"
 #include "gdeque.h"
 #include "cstring.h"
+#include "mem.h"
 #include "myiostream.h"
 
 using namespace DS;
+
+void *operator new(unsigned int s)
+{
+  void *ptr = mymalloc(s);
+
+  if (ptr == 0)
+    THROW(NOFREE_MEM);
+
+  return ptr;
+}
+
+void *operator new[](unsigned int s)
+{
+  //cout << "s: " << s << endl;
+  // printf("s: %d\r\n", s);
+
+  void *ptr = mymalloc(s);
+
+  if (ptr == 0)
+    THROW(NOFREE_MEM);
+
+  return ptr;
+}
+
+void operator delete(void *p)
+{
+  myfree(p);
+}
+
+void operator delete[](void *p)
+{
+  myfree(p);
+}
 
 #if 0
 void send_byte(uint8_t b)
@@ -115,12 +149,6 @@ int main(void)
     cout << hex << "&__end_global_ctor__: " << end << endl;
     cout << dec;
 #endif
-  g_dtor();
-    while(1);
-
-  DS::Deque<int, 128> test_buf;
-
-  test_buf.init();
 
 #if 0
 
@@ -181,7 +209,7 @@ int main(void)
 #else
   init_eval();
   //deque.init();
-  mydeque.init();
+  //mydeque.init();
   //line_buf.init();
   Environment *global_env = get_env(0, "global");
   create_primitive_procedure(global_env);
