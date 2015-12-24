@@ -124,8 +124,6 @@ void __cyg_profile_func_exit(void *this_func, void *call_site)
 
 typedef void (*Fp)();
 
-
-
 int main(void)
 {
   extern unsigned int __start_global_ctor__;
@@ -207,15 +205,24 @@ int main(void)
   }
 
 #else
-  init_eval();
-  //deque.init();
-  //mydeque.init();
-  //line_buf.init();
-  Environment *global_env = get_env(0, "global");
-  create_primitive_procedure(global_env);
-  non_os_repl("simple scheme> ", global_env);
+  TRY
+  {
+    init_eval();
+    //deque.init();
+    //mydeque.init();
+    //line_buf.init();
+    Environment *global_env = get_env(0, "global");
+    create_primitive_procedure(global_env);
+    non_os_repl("simple scheme> ", global_env);
+  }
+  CATCH(NOFREE_MEM)
+  {
+    cout << "no mem" << endl;
+  }
+  ETRY
+
 #endif
   return 0;
 
 }
-}
+} // extern "C"
